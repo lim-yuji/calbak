@@ -124,8 +124,9 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  
+    os.path.join(BASE_DIR, 'static'),  # static 폴더 경로 설정
 ]
 
 MEDIA_URL = '/media/'  # 웹에서 접근할 URL
