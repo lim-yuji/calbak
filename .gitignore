@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/django,python,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,python,git
 
+#Gooogle Key
+.env
+credentials.json
 ### Django ###
 *.log
 *.pot
@@ -278,4 +281,4 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
-# End of https://www.toptal.com/developers/gitignore/api/django,python,git
+# End of https://www.toptal.com/developers/gitignore/api/django,python,git.env

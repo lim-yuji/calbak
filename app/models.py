@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+class Event(models.Model):
+    title = models.CharField(max_length=200)
+    start = models.DateField()
+    end = models.DateField()
+    def as_dict(self):
+        return {'id': self.id, 'title': self.title, 'start': str(self.start), 'end': str(self.end)}
