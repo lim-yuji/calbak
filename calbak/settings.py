@@ -12,11 +12,18 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from google.auth import exceptions
+import environ
 
+env = environ.Env()
+environ.Env.read_env()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env.read_env(os.path.join(BASE_DIR, '.env'))
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,9 +33,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-7zss^)b@u%ziz+pa4%_dx*4v9syu+8_9$c6a7k-o0s@0inba32'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -41,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
+    'django_extensions',
+    'sslserver',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +140,13 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'  # 웹에서 접근할 URL
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 실제 파일이 저장될 경로
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # 세션을 데이터베이스에 저장
+
+GOOGLE_API_KEY = env('GOOGLE_API_KEY')
+GOOGLE_CALENDAR_ID = env('GOOGLE_CALENDAR_ID')
+HOLIDAY_CALENDAR_ID = env('HOLIDAY_CALENDAR_ID')
+
+
+SSL_CERTIFICATE = '../localhost.crt'
+SSL_PRIVATE_KEY = '../localhost.key'
