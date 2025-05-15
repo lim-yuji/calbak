@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* layout.css */
 
 /* 기본적으로 전체 너비를 100%로 설정 */
@@ -87,3 +88,94 @@ footer {
     bottom: 0;
     width: 100%;
 }
+=======
+/* layout.css */
+
+/* 기본적으로 전체 너비를 100%로 설정 */
+body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Helvetica', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+}
+
+/* 기본적인 페이지 컨테이너 */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1200px; /* 최대 너비 제한 */
+}
+
+/* 헤더 스타일 */
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+}
+
+/* 네비게이션 바 스타일 */
+nav {
+    background-color: #444;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* 기본적으로 페이지 컨텐츠에 스타일 */
+main {
+    padding: 40px 0;
+    background-color: #fff; /* 배경색 추가 */
+    color:black;
+}
+
+/* 사이드바와 본문을 나누는 레이아웃 */
+.row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* 사이드바 스타일 */
+aside {
+    flex: 1;
+    background-color: #eaeaea;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* 본문 콘텐츠 스타일 */
+section {
+    flex: 3;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* 푸터 스타일 */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+>>>>>>> d439a3b381c7cd92e68422c3d7a9e825bd8b271a

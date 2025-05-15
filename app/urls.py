@@ -12,4 +12,5 @@ urlpatterns = [
     path('calendar/', views.calendar_view, name='calendar'),
     path('calendar/events/add/', views.add_event, name='add_event'),
     path('google/calendar/events/', views.get_holiday_events, name='get_holiday_events'),
+
 ]
