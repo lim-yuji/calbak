@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>프로필 관리</title>
+    <link rel="stylesheet" href="{%static 'css/style_smg.css'%}">
+</head>
+<body>
+<div class="container">
+    <h2>프로필 관리</h2>
+    <div class="info-row">
+        <span class="info-label">아이디</span>
+        <span class="info-value">sampleUser</span>
+    </div>
+    <div class="info-row">
+        <span class="info-label">앱 버전</span>
+        <span class="info-value" id="appVersion">1.0.0</span>
+    </div>
+    <div class="button-group">
+        <button class="action-btn" id="changePasswordBtn">비밀번호 변경</button>
+        <button class="action-btn" id="changeEmailBtn">이메일 변경</button>
+        <button class="action-btn" id="noticeBtn">공지사항</button>
+        <button class="action-btn danger" id="deleteBtn">회원 탈퇴</button>
+        <button class="action-btn secondary" id="logoutBtn">로그아웃</button>
+    </div>
+</div>
+
+<!-- 간단 모달 -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <p id="modalMsg"></p>
+        <button id="modalOkBtn">확인</button>
+    </div>
+</div>
+
+<!-- 폼 입력 모달 -->
+<div id="formModal" class="modal">
+    <div class="modal-content">
+        <h3 id="formTitle"></h3>
+        <div id="formFields" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;"></div>
+        <button id="formSubmitBtn">확인</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

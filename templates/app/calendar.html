@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>캘린더</title>
+  <!-- FullCalendar CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css"
+    rel="stylesheet"
+  />
+  <!-- 커스텀 CSS -->
+  <link
+    rel="stylesheet"
+    href="{% static 'css/style_lsy.css' %}"
+  />
+</head>
+<body>
+  <div id="calendar"></div>
+
+  <!-- 이벤트 관리 모달 -->
+  <div id="event-modal" class="modal">
+    <div class="modal-content">
+      <span id="modal-close" class="close">&times;</span>
+      <h2 id="modal-date">날짜</h2>
+      <ul id="event-list"></ul>
+      <input id="event-input" type="text" placeholder="일정 제목 입력" />
+    </div>
+  </div>
+
+  <!-- UMD 번들 및 플러그인 -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales/ko.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.8/index.global.min.js"></script>
+  <script src="{% static 'js/calendar.js' %}" defer></script>
+</body>

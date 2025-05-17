@@ -1,0 +1,196 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;            /* 화면 스크롤 숨김 */
+  background: #cecece;         /* 고정 배경 색상 */
+}
+
+#calendar {
+  width: calc(100% - 40px);    /* 좌우 20px margin을 포함한 반응형 너비 */
+  margin: 20px;                 /* 상/우/하/좌 20px 동일 */
+  box-sizing: border-box;
+  background: white;
+  border-radius: 8px;
+  height: calc(100vh - 40px);   /* 상/하 margin 제외한 높이 */
+  overflow: hidden;
+}
+
+#calendar .fc {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#calendar .fc-scrollgrid {
+  /* 테이블 전체를 감싸는 박스에 테두리와 둥근 모서리 적용 */
+  border: 2px solid #464646;   /* 원하는 색, 두께로 변경 */
+  border-radius: 8px;          /* 원하는 반경으로 변경 */
+  overflow: hidden;            /* 둥근 모서리에 맞춰 자르기 */
+}
+
+
+
+/* 맨 아래 행의 셀들은 아래쪽 테두리 제거 */
+#calendar .fc-daygrid-body .fc-scrollgrid-section:last-child .fc-daygrid-day-frame {
+  border-bottom: none;
+}
+
+.fc .fc-view-harness-active > .fc-view {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.fc .fc-daygrid-day-number{
+  font-size: 10px;
+}
+/* 2) 툴바 버튼 제어 */
+
+
+.fc .fc-button {
+  background: transparent !important;
+  border: none !important;
+  color: #444 !important;
+  font-weight: 600;
+  margin: 0 4px;
+  padding: 6px 12px;
+}
+.fc .fc-button:hover {
+  background: rgba(0,0,0,0.05) !important;
+}
+
+/* 3) 월간 뷰 vs 주·일 뷰 조건부 스크롤 */
+/* 월간 뷰: 콘텐츠에 딱 맞춰 높이 자동, 내부 스크롤 제거 */
+.fc .fc-dayGridMonth-view .fc-scroller {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* 주·일 뷰: 내부 스크롤 유지, 높이 제한 */
+.fc .fc-timeGridWeek-view .fc-scroller,
+.fc .fc-timeGridDay-view .fc-scroller {
+  max-height: 600px;      /* 원하는 최대 높이 */
+  overflow-y: auto !important;
+}
+
+/* 반응형 (작은 화면) */
+@media (max-width: 600px) {
+  .calendar-page {
+    padding: 10px;
+    max-width: 100%;
+  }
+}
+
+.fc .fc-toolbar-title{
+  font-size: 1.3em;
+}
+
+.fc .fc-button-group > .fc-button{
+  font-size: 0.75em;
+  padding: 5px;
+}
+
+.fc .fc-toolbar.fc-header-toolbar{
+  margin-top: 0.7em;
+}
+
+.fc .fc-col-header-cell-cushion{
+  font-size: 13px;
+}
+
+.fc .fc-col-header-cell-cushion[aria-label="일요일"],
+.fc .fc-col-header-cell-cushion[aria-label="토요일"]{
+  color: red;
+}
+
+.fc-direction-ltr .fc-toolbar > * > :not(:first-child){
+  display: none;
+}
+
+.fc-h-event .fc-event-title{
+  font-size: 10px;
+}
+
+.fc-daygrid-event-dot{
+  color: aqua;
+}
+
+/* 모달 css */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;        /* 클릭 차단 */
+  z-index: 1000;
+}
+
+.modal.show {
+  display: flex;
+  pointer-events: all;         /* 모달 열 때만 클릭 허용 */
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 1001;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.close, #add-event-btn, #event-input, #trash, #event-list li {
+  pointer-events: all;         /* 모달 내부 요소 클릭 활성화 */
+}
+
+.fc-event, .fc-daygrid-day-frame {
+  pointer-events: auto;
+}
+
+#event-list {
+  list-style: none;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+#event-list li {
+  padding: 4px 8px;
+  margin-bottom: 4px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  cursor: grab;
+}
+.btn {
+  font-size: 1.5em;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: #3b82f6;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 10px;
+}
+.trash {
+  display: inline-block;
+  font-size: 1.5em;
+  cursor: pointer;
+}
