@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-/* reset.css */
-
 /* 모든 요소의 기본 여백, 패딩을 제거 */
 *,
 *::before,
@@ -52,58 +49,3 @@ input, textarea, select, button {
     border: none;
     outline: none;
 }
-=======
-/* reset.css */
-
-/* 모든 요소의 기본 여백, 패딩을 제거 */
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* 기본 폰트 설정 */
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.5;
-}
-
-/* 리스트 기본 스타일 제거 */
-ul, ol {
-    list-style: none;
-}
-
-/* 링크 기본 스타일 제거 */
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-/* 테이블 기본 스타일 제거 */
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-/* 이미지의 기본 여백 제거 */
-img {
-    max-width: 100%;
-    display: block;
-}
-
-/* 버튼 스타일 초기화 */
-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-/* 기본 폼 요소 스타일 초기화 */
-input, textarea, select, button {
-    font: inherit;
-    border: none;
-    outline: none;
-}
->>>>>>> d439a3b381c7cd92e68422c3d7a9e825bd8b271a

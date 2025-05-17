@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="{%static 'css/style_smg.css'%}">
+</head>
+<body>
+    <div class="container">
+        <!-- 프로필 영역 -->
+        <div class="profile-row">
+            <div class="profile-section">
+                <div class="profile-icon">
+                    <span class="material-symbols-outlined">account_circle</span>
+                </div>
+                <div class="profile-info">
+                    <div class="username">username</div>
+                    <div class="email">user_email</div>
+                </div>
+            </div>
+            <button class="edit-button">프로필 수정</button>
+        </div>
+
+        <!-- 검색창 영역 -->
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <span class="material-symbols-outlined search-input-icon">search</span>
+                <input type="text" class="search-input" placeholder="이름으로 친구를 검색하세요.">
+            </div>
+            <button class="plus-button" aria-label="친구 추가" id="open-popup">
+                <span class="material-symbols-outlined">add</span>
+            </button>
+        </div>
+        
+        <ul class="item-list" id="friend-list">
+            <!-- 친구가 없으면 비어 있음 -->
+        </ul>
+    </div>
+
+    <!-- 친구 추가/초대 팝업 (선택창) -->
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="popup">
+        <button class="popup-option" id="add-by-id">아이디로 친구 추가</button>
+        <button class="popup-option" id="invite-kakao">카카오톡으로 친구 초대</button>
+    </div>
+
+    <!-- 아이디로 친구 추가 입력 팝업 -->
+    <div class="popup-overlay" id="popup-add-overlay"></div>
+    <div class="popup-add" id="popup-add">
+        <div class="popup-add-title">친구 요청</div>
+        <div class="popup-add-desc">아이디 또는 이메일주소</div>
+        <input type="text" class="popup-add-input" id="friend-input" placeholder="아이디 또는 이메일">
+        <div class="popup-add-btns">
+            <button class="popup-add-cancel" id="add-cancel">취소</button>
+            <button class="popup-add-confirm" id="add-confirm">확인</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

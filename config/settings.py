@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'app',
     'django_extensions',
     'sslserver',
+    'config',
 ]
 
 MIDDLEWARE = [
@@ -62,7 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'calbak.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -80,7 +81,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'calbak.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
