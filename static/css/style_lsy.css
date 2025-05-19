@@ -44,7 +44,7 @@ html, body {
 }
 
 .fc .fc-daygrid-day-number{
-  font-size: 10px;
+  font-size: 0.6rem;
 }
 /* 2) 툴바 버튼 제어 */
 
@@ -84,7 +84,7 @@ html, body {
 }
 
 .fc .fc-toolbar-title{
-  font-size: 1.3em;
+  font-size: 1.7em;
 }
 
 .fc .fc-button-group > .fc-button{
@@ -93,7 +93,9 @@ html, body {
 }
 
 .fc .fc-toolbar.fc-header-toolbar{
-  margin-top: 0.7em;
+  margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
+  margin-left: 1rem;
 }
 
 .fc .fc-col-header-cell-cushion{
@@ -110,7 +112,7 @@ html, body {
 }
 
 .fc-h-event .fc-event-title{
-  font-size: 10px;
+  font-size: 0.6rem;
 }
 
 .fc-daygrid-event-dot{
@@ -193,4 +195,16 @@ html, body {
   display: inline-block;
   font-size: 1.5em;
   cursor: pointer;
+}
+
+/* 2) 뷰 전환 버튼 그룹에 flex gap 적용 */
+.fc .fc-button-group {
+  display: inline-flex !important;
+  gap: 0.5rem;           /* 버튼들 사이 0.5rem (8px) */
+}
+
+/* 3) 타이틀(가운데)과 뷰 버튼 그룹(오른쪽) 사이 간격 확보 */
+.fc .fc-toolbar-chunk:last-child {
+  margin-left: 1rem;     /* 타이틀과 뷰 버튼 사이 1rem */
+  margin-right: 1.5rem;
 }
