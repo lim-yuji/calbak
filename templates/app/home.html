@@ -1,38 +1,90 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-    <title>Calbak</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>캘박 - Home</title>
+
+  <!-- Font Awesome CDN -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-pZfp0q5K+XK6u+9cO0hKz+bd0QvXOZBsYz6LPoURFh37wZbsbCojxi+Z0Nm57CZV+0sIBh5e8a1ypz/sL5/4g=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- 로컬 static/css/style_ydy.css -->
+  <link rel="stylesheet" href="{% static 'css/style_ydy.css' %}" />
 </head>
-<body>
-    <header>
-        <h1>Welcome to 캘박</h1>
-        <p>중복 일정을 방지하고 친구와 일정을 공유해 보세요.</p> 
-    </header>
 
-    <main>
-        <div class="container">
-            <div class="row">
-                <section>
-                    <h2>일정 관리</h2>
-                    <p>여기에 일정 관리 관련 정보를 표시합니다.</p>
-                </section>
-                <aside>
-                    <h3>친구 일정</h3>
-                    <p>여기에 친구의 일정을 표시합니다.</p>
-                </aside>
-            </div>
+<body class="home">
+  <header class="home__header">
+    <button type="button" class="home__header-menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <main class="home__container">
+    <h1 class="home__title">캘박</h1>
+    <p class="home__subtitle">겹치지 않는 완벽한 일정 관리</p>
+
+    <section class="home__card-list">
+      <div class="home__card">
+        <div class="home__card-icon">
+          <img
+          src="{% static 'img/check-mark.png' %}"
+          alt="오늘 일정 아이콘"
+          class="home__card-icon-img check-icon"
+          />
+          <i class="fa-regular fa-calendar-days"></i>
         </div>
-    </main>
+        <div class="home__card-content">
+          <h2 class="home__card-title">오늘의 일정</h2>
+          <p class="home__card-desc">오늘은 3개의 일정이 있어요!</p>
+        </div>
+      </div>
 
-    <footer>
-        <p>&copy; 2025 Calbak. All rights reserved.</p>
-    </footer>
-    <script src="{% static 'js/script.js' %}"></script>
+      <div class="home__card">
+        <div class="home__card-icon">
+          <img
+          src="{% static 'img/dupli-icon.png' %}"
+          alt="일정 겹침 아이콘"
+          class="home__card-icon-img dupli-icon"
+          />
+          <i class="fa-solid fa-exclamation"></i>
+        </div>
+        <div class="home__card-content">
+          <h2 class="home__card-title">일정 겹침 발생!</h2>
+          <p class="home__card-desc">확인 및 수정이 필요해요</p>
+        </div>
+      </div>
+
+      <div class="home__card">
+        <div class="home__card-icon">
+          <img
+          src="{% static 'img/calendar.png' %}"
+          alt="캘린더 아이콘"
+          class="home__card-icon-img calendar-icon"
+          />
+          <i class="fa-regular fa-calendar"></i>
+        </div>
+        <div class="home__card-content">
+          <h2 class="home__card-title">내 캘린더</h2>
+          <p class="home__card-desc">금주의 일정을 확인하고 관리하세요!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button type="button" class="home__btn-add">
+    <img
+    src="{% static 'img/plus.png' %}"
+    alt="플러스 아이콘"
+    class="button-icon-img plus-icon"
+    />
+    <i class="fa-solid fa-plus"></i>
+  </button>
 </body>
 </html>
