@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>캘박 - 로그인</title>
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-pZfp0q5K+XK6u+9cO0hKz+bd0QvXOZBsYz6LPoURFh37wZbsbCojxi+Z0Nm57CZV+0sIBh5e8a1ypz/sL5/4g=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- 공통 스타일 -->
+  <link rel="stylesheet" href="{% static 'css/style_ydy.css' %}" />
+</head>
+<body class="login">
+  <main class="login__wrapper">
+    <div class="login__card">
+      <div class="login__icon">
+        <i class="fa-regular fa-calendar"></i>
+      </div>
+      <h1 class="login__title">캘박</h1>
+
+      <form class="login__form" method="post">
+        {% csrf_token %}
+        <input
+          type="email"
+          name="email"
+          placeholder="이메일"
+          class="login__input"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="비밀번호"
+          class="login__input"
+          required
+        />
+        <button type="submit" class="login__button">로그인</button>
+      </form>
+
+      <div class="login__links">
+        <a href="#" class="login__link">회원가입</a>
+        <a href="#" class="login__link">비밀번호 찾기</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
