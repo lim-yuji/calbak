@@ -1,23 +1,32 @@
-
 document.addEventListener('DOMContentLoaded', function() {
   const calendarEl = document.getElementById('calendar');
   if (!calendarEl) return;
 
-  // ——— grab modal elements (may be absent)
+  // ——— grab modal elements
   const modal      = document.getElementById('event-modal');
   const closeBtn   = document.getElementById('modal-close');
   const eventList  = document.getElementById('event-list');
   const eventInput = document.getElementById('event-input');
-  const addBtn     = document.getElementById('add-event-btn');
-  let currentDate;
+  let addBtn       = document.getElementById('add-event-btn');
+  let currentStart, currentEnd;   // 기간을 저장
 
-  function openModal(dateStr) {
+  function openModal(startStr, endStr = null) {
     if (!modal) return;
-    currentDate = dateStr;
-    document.getElementById('modal-date').textContent = dateStr;
+    currentStart = startStr;
+    currentEnd   = endStr || startStr;
+    // 시작~종료 또는 단일일 표시
+    document.getElementById('modal-date').textContent =
+      endStr
+        ? `${startStr} ~ ${endStr}`
+        : startStr;
+
     eventList.innerHTML = '';
     calendar.getEvents()
-      .filter(e => e.startStr.slice(0,10) === dateStr)
+      .filter(e =>
+        // 선택된 기간 안에 들어오는 이벤트 모두 표시
+        e.startStr.slice(0,10) >= startStr &&
+        e.startStr.slice(0,10) <  endStr
+      )
       .forEach(e => {
         const li  = document.createElement('li');
         const del = document.createElement('span');
@@ -27,12 +36,13 @@ document.addEventListener('DOMContentLoaded', function() {
         del.onclick = () => {
           if (confirm('삭제하시겠습니까?')) {
             e.remove();
-            openModal(currentDate);
+            openModal(currentStart, currentEnd);
           }
         };
         li.prepend(del);
         eventList.appendChild(li);
       });
+
     eventInput.value = '';
     modal.classList.add('show');
     eventInput.focus();
@@ -43,15 +53,19 @@ document.addEventListener('DOMContentLoaded', function() {
     modal.classList.remove('show');
   }
 
-  // only wire up these if they exist
   if (closeBtn)   closeBtn.onclick = closeModal;
   window.onclick   = e => { if (e.target === modal) closeModal(); };
 
   function addEvent() {
     const title = eventInput.value.trim();
     if (!title) return;
-    calendar.addEvent({ title, start: currentDate, allDay: true });
-    openModal(currentDate);
+    calendar.addEvent({
+      title: title,
+      start: currentStart,
+      end:   currentEnd,
+      allDay: true
+    });
+    openModal(currentStart, currentEnd);
   }
 
   if (addBtn) addBtn.onclick = addEvent;
@@ -64,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // FullCalendar 초기화
+  // ——— FullCalendar 초기화
   const calendar = new FullCalendar.Calendar(calendarEl, {
     locale: 'ko',
     eventSources: [{
@@ -78,9 +92,19 @@ document.addEventListener('DOMContentLoaded', function() {
       right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
     initialView: 'dayGridMonth',
-    selectable: true,
+    selectable: true,       // 드래그 선택 허용
+    selectMirror: true,     // 드래그 중 블록 미리보기
     editable: true,
-    dateClick: info => openModal(info.dateStr),
+
+    // 드래그로 기간 선택했을 때 모달 띄우기
+    select: info => {
+      openModal(info.startStr, info.endStr);
+      calendar.unselect();
+    },
+
+    // 단일일 클릭했을 때(기간 선택과 구분)
+    dateClick: info => openModal(info.dateStr, info.dateStr),
+
     events: [
       { title: '샘플 이벤트', start: new Date().toISOString().slice(0,10) }
     ]

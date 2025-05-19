@@ -32,7 +32,7 @@ mysqlclient==2.2.7
 oauthlib==3.2.2
 prompt_toolkit==3.0.50
 proto-plus==1.26.1
-protobuf==3.20
+protobuf==6.30.2
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
 pycparser==2.22
