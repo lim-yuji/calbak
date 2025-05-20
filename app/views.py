@@ -4,11 +4,12 @@ import datetime
 import requests
 
 from django.conf import settings
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib import messages
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
+from django.contrib.auth import authenticate, login as auth_login
 from .models import Event
 from django.views.decorators.http import require_POST
 from urllib.parse import quote
@@ -29,14 +30,6 @@ def home(request):
 def calendar_view(request):
     events = Event.objects.all() 
     return render(request, 'app/calendar.html', {'events': events})
-
-# 로그인 페이지 렌더링
-def login_view(request):
-    return render(request, 'app/login.html')
-
-# 회원가입 페이지 렌더링
-def signup_view(request):
-    return render(request, 'app/signup.html')
 
 def get_holiday_events(request):
     start = request.GET.get('start', datetime.datetime.utcnow().isoformat() + 'Z')
@@ -118,3 +111,60 @@ def profile_edit(request):
 def friend_calendar(request):
     return render(request, 'app/friend_calendar.html')
 
+# 로그인
+@csrf_exempt  # 개발 중에만, 실제론 CSRF 토큰 처리 필요
+def login(request):
+    if request.method == 'POST':
+        if request.content_type == 'application/json':
+            try:
+                data = json.loads(request.body)
+            except json.JSONDecodeError:
+                return JsonResponse({'success': False, 'error': '잘못된 JSON 데이터입니다.'}, status=400)
+            email = data.get('email')
+            password = data.get('password')
+        else:
+            email = request.POST.get('email')
+            password = request.POST.get('password')
+
+        if not email or not password:
+            return JsonResponse({'success': False, 'error': '이메일과 비밀번호를 입력하세요.'}, status=400)
+
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            auth_login(request, user)
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'error': '로그인 실패. 아이디 또는 비밀번호를 확인하세요.'}, status=401)
+
+    return render(request, 'app/login.html')
+
+
+# 회원가입
+def signup(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            email = data.get('email', '').strip()
+            password = data.get('password')
+            password_confirm = data.get('password_confirm')
+            name = data.get('name')
+
+            if not email:
+                return JsonResponse({'success': False, 'error': '이메일을 입력하세요.'})
+
+            if password != password_confirm:
+                return JsonResponse({'success': False, 'error': '비밀번호가 일치하지 않습니다.'})
+
+            if User.objects.filter(email=email).exists():
+                return JsonResponse({'success': False, 'error': '이미 가입된 이메일입니다.'})
+
+            user = User.objects.create_user(username=email, email=email, password=password)
+            user.first_name = name 
+            user.save()
+
+            return JsonResponse({'success': True})
+
+        except json.JSONDecodeError:
+            return HttpResponseBadRequest('잘못된 요청입니다.')
+
+    return render(request, 'app/signup.html')

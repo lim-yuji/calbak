@@ -7,13 +7,10 @@
   <title>캘박 - 로그인</title>
 
   <!-- Font Awesome -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-pZfp0q5K+XK6u+9cO0hKz+bd0QvXOZBsYz6LPoURFh37wZbsbCojxi+Z0Nm57CZV+0sIBh5e8a1ypz/sL5/4g=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
 
   <!-- 공통 스타일 -->
   <link rel="stylesheet" href="{% static 'css/style_ydy.css' %}" />
@@ -46,10 +43,11 @@
       </form>
 
       <div class="login__links">
-        <a href="#" class="login__link">회원가입</a>
+        <a href="{% url 'signup' %}" class="login__link">회원가입</a>
         <a href="#" class="login__link">비밀번호 찾기</a>
       </div>
     </div>
   </main>
+  <script src="{% static 'js/login.js' %}"></script>
 </body>
 </html>
