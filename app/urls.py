@@ -12,5 +12,6 @@ urlpatterns = [
     #path('calendar/', views.calendar_view, name='calendar'),
     #path('calendar/events/add/', views.add_event, name='add_event'),
     #path('google/calendar/events/', views.get_holiday_events, name='get_holiday_events'),
-    path('', views.login_view, name='login'), # 로그인 페이지
+    #path('', views.login_view, name='login'), # 로그인 페이지
+    path('', views.signup_view, name='signup'), # 회원가입 페이지
 ]

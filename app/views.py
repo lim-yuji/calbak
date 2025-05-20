@@ -33,6 +33,10 @@ def calendar_view(request):
 def login_view(request):
     return render(request, 'app/login.html')
 
+# 회원가입 페이지 렌더링
+def signup_view(request):
+    return render(request, 'app/signup.html')
+
 def get_holiday_events(request):
     start = request.GET.get('start', datetime.datetime.utcnow().isoformat() + 'Z')
     end = request.GET.get('end')

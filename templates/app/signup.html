@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>가입하기</title>
+  <script src="https://kit.fontawesome.com/9a2ea3dfaf.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static 'css/style_ydy.css' %}" />
+</head>
+
+<body class="signup">
+  <div class="signup__wrapper">
+
+    <!-- 헤더 -->
+    <header class="signup__header">
+      <button type="button" class="signup__back">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      <div class="signup__progress">
+        <span class="signup__progress-text">회원가입</span>
+      </div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="signup__main">
+      <h1 class="signup__logo">캘박</h1>
+
+      <form id="signupForm" class="signup__form">
+        <!-- Email -->
+        <div class="signup__field">
+          <i class="fa-regular fa-envelope signup__icon"></i>
+          <input
+            type="email"
+            placeholder="이메일"
+            class="signup__input-field"
+            required
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="signup__field">
+          <i class="fa-solid fa-lock signup__icon"></i>
+          <input
+            type="password"
+            placeholder="비밀번호"
+            class="signup__input-field"
+            required
+          />
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="signup__field">
+          <i class="fa-solid fa-lock signup__icon"></i>
+          <input
+            type="password"
+            placeholder="비밀번호 재확인"
+            class="signup__input-field"
+            required
+          />
+        </div>
+
+        <!-- 이름(Name) 추가 -->
+        <div class="signup__field">
+          <i class="fa-solid fa-user signup__icon"></i>
+          <input
+            type="text"
+            placeholder="이름"
+            class="signup__input-field signup__input--name"
+            required
+          />
+        </div>
+
+        <!-- Phone + Verify Button -->
+        <div class="signup__field signup__field--phone">
+          <i class="fa-solid fa-phone signup__icon"></i>
+          <input
+            type="tel"
+            placeholder="전화번호"
+            class="signup__input-field"
+            required
+          />
+          <button type="button" class="signup__btn-code">인증번호</button>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="signup__field signup__field--dob">
+          <i class="fa-regular fa-calendar signup__icon"></i>
+          <input
+            type="date"
+            class="signup__input-field"
+            required
+          />
+        </div>
+
+        <!-- Toggle Switch -->
+        <div class="signup__toggle-group">
+          <label class="signup__switch">
+            <input type="checkbox" class="signup__switch-input" />
+            <span class="signup__switch-slider"></span>
+          </label>
+          <span class="signup__toggle-text">약관 전체동의</span>
+        </div>
+      </form>
+
+      <!-- Sign Up 버튼 -->
+      <button
+        type="submit"
+        form="signupForm"
+        class="signup__submit"
+      >가입하기</button>
+    </main>
+
+  </div>
+</body>
+</html>
