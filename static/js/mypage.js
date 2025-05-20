@@ -17,20 +17,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const friendInput = document.getElementById('friend-input');
 
     // 팝업 열기
-    openPopupBtn.addEventListener('click', function() {
+    openPopupBtn.addEventListener('click', () => {
         popup.style.display = 'block';
         popupOverlay.style.display = 'block';
     });
+
     // 팝업 닫기 (오버레이 클릭시)
     popupOverlay.addEventListener('click', closePopup);
-
     function closePopup() {
         popup.style.display = 'none';
         popupOverlay.style.display = 'none';
     }
 
     // "아이디로 친구 추가" 클릭
-    addByIdBtn.addEventListener('click', function() {
+    addByIdBtn.addEventListener('click', () => {
         closePopup();
         friendInput.value = '';
         popupAdd.style.display = 'block';
@@ -41,16 +41,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // 아이디로 친구 추가 팝업 닫기
     addCancelBtn.addEventListener('click', closeAddPopup);
     popupAddOverlay.addEventListener('click', closeAddPopup);
-
     function closeAddPopup() {
         popupAdd.style.display = 'none';
         popupAddOverlay.style.display = 'none';
     }
 
     // 아이디로 친구 추가 팝업 - 확인 버튼
-    addConfirmBtn.addEventListener('click', function() {
+    addConfirmBtn.addEventListener('click', () => {
         const val = friendInput.value.trim();
-        if (val !== '') {
+        if (val) {
             addFriend(val);
             closeAddPopup();
         } else {
@@ -59,21 +58,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // 엔터키로도 확인
-    friendInput.addEventListener('keydown', function(e) {
+    friendInput.addEventListener('keydown', e => {
         if (e.key === 'Enter') {
             addConfirmBtn.click();
         }
     });
 
     // "카카오톡으로 친구 초대" 클릭
-    inviteKakaoBtn.addEventListener('click', function() {
-        // 실제 카카오톡 공유 링크 (예시: 카카오톡 채널 추가/공유)
+    inviteKakaoBtn.addEventListener('click', () => {
         window.open('https://www.kakao.com/talk', '_blank');
         closePopup();
     });
 
     // 친구 추가 함수
     function addFriend(name) {
+        // 중복 체크 (옵션)
+        const exists = [...itemList.children].some(li => li.querySelector('.item-text').textContent === name);
+        if (exists) return alert('이미 친구 목록에 있습니다.');
+
         const li = document.createElement('li');
         li.className = 'list-item';
         li.innerHTML = `
@@ -81,60 +83,64 @@ document.addEventListener('DOMContentLoaded', function() {
                 <button class="star-btn" aria-label="즐겨찾기 추가">
                     <span class="material-symbols-outlined star" aria-hidden="true">star_border</span>
                 </button>
-                <span class="item-text">${name}</span>
+                <span class="item-text"></span>
             </div>
             <span class="material-symbols-outlined chevron">chevron_right</span>
         `;
+        li.querySelector('.item-text').textContent = name;
+
         // 별 버튼 이벤트
         const starBtn = li.querySelector('.star-btn');
         setStarToggleEvent(starBtn);
+
         // 리스트 클릭 이벤트
         setListItemClickEvent(li);
+
         itemList.appendChild(li);
     }
 
     // 검색 기능
-    searchInput.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        document.querySelectorAll('.list-item').forEach(item => {
-            const text = item.querySelector('.item-text').textContent.toLowerCase();
-            if (text.includes(searchTerm)) {
-                item.style.display = '';
-            } else {
-                item.style.display = 'none';
-            }
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            [...itemList.children].forEach(item => {
+                const text = item.querySelector('.item-text').textContent.toLowerCase();
+                item.style.display = text.includes(searchTerm) ? '' : 'none';
+            });
         });
-    });
+    }
 
     // 별 버튼 토글 기능 (즐겨찾기)
     function setStarToggleEvent(starBtn) {
-        starBtn.addEventListener('click', function(e) {
+        starBtn.addEventListener('click', e => {
             e.stopPropagation();
-            const starIcon = this.querySelector('.star');
-            this.classList.toggle('favorited');
-            if (this.classList.contains('favorited')) {
+            const starIcon = starBtn.querySelector('.star');
+            starBtn.classList.toggle('favorited');
+            if (starBtn.classList.contains('favorited')) {
                 starIcon.textContent = 'star';
-                this.setAttribute('aria-label', '즐겨찾기 해제');
+                starBtn.setAttribute('aria-label', '즐겨찾기 해제');
             } else {
                 starIcon.textContent = 'star_border';
-                this.setAttribute('aria-label', '즐겨찾기 추가');
+                starBtn.setAttribute('aria-label', '즐겨찾기 추가');
             }
         });
     }
 
-    // 리스트 아이템 클릭 시 해당 친구의 일정 페이지로 이동
+    // 리스트 아이템 클릭 시 친구 일정 페이지로 이동
     function setListItemClickEvent(listItem) {
-        listItem.addEventListener('click', function(e) {
-            const friendName = this.querySelector('.item-text').textContent;
+        listItem.addEventListener('click', () => {
+            const friendName = listItem.querySelector('.item-text').textContent;
             window.location.href = `schedule.html?name=${encodeURIComponent(friendName)}`;
         });
     }
 
     // 프로필 수정 버튼 클릭시 profile.html로 이동
     const editButton = document.querySelector('.edit-button');
-    editButton.addEventListener('click', function() {
-        window.location.href = 'profile.html';
-    });
+    if (editButton) {
+        editButton.addEventListener('click', () => {
+            window.location.href = 'profile.html';
+        });
+    }
 
     // 초기에는 친구 목록이 비어 있음
 });
