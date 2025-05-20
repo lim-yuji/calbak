@@ -78,13 +78,9 @@
     </section>
   </main>
 
-  <button type="button" class="home__btn-add">
-    <img
-    src="{% static 'img/plus.png' %}"
-    alt="플러스 아이콘"
-    class="button-icon-img plus-icon"
-    />
-    <i class="fa-solid fa-plus"></i>
-  </button>
+  <a href="{% url 'calendar' %}" class="home__btn-add">
+  <img src="{% static 'img/plus.png' %}" alt="플러스 아이콘" class="button-icon-img plus-icon" />
+  <i class="fa-solid fa-plus"></i>
+</a>
 </body>
 </html>
