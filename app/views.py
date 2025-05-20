@@ -27,7 +27,8 @@ def home(request):
 
 # 캘린더 페이지 렌더링
 def calendar_view(request):
-    return render(request, 'app/calendar.html')
+    events = Event.objects.all() 
+    return render(request, 'app/calendar.html', {'events': events})
 
 def get_holiday_events(request):
     start = request.GET.get('start', datetime.datetime.utcnow().isoformat() + 'Z')
@@ -68,19 +69,44 @@ def get_holiday_events(request):
     return JsonResponse(data, safe=False)
 
 # 일정 추가 API
-@csrf_exempt
 @require_POST
 def add_event(request):
-    if request.method != 'POST':
-        return HttpResponseBadRequest(json.dumps({'success': False, 'error': 'Invalid method'}), content_type='application/json')
     try:
+        # JSON 데이터를 받아옵니다.
         payload = json.loads(request.body)
+        
+        # 필요한 필드 확인 및 데이터베이스 저장
+        title = payload.get('title')
+        start = payload.get('start')
+        end = payload.get('end', start)  # end가 없으면 start를 end로 설정
+
+        if not title or not start:
+            raise ValueError("Title and Start date are required.")
+
+        # 새로운 이벤트 생성
         ev = Event.objects.create(
-            title=payload['title'],
-            start=payload['start'],
-            end=payload.get('end', payload['start'])
+            title=title,
+            start=start,
+            end=end
         )
+        
+        # 성공적으로 저장되면 이벤트 정보를 반환
         return JsonResponse({'success': True, 'event': ev.as_dict()})
+    
     except Exception as e:
+        # 오류가 발생하면 오류 메시지 반환
         return HttpResponseBadRequest(json.dumps({'success': False, 'error': str(e)}), content_type='application/json')
+    
+
+# 마이 페이지
+def mypage(request):
+    return render(request, 'mypage.html')
+
+# 프로필 수정
+def profile_edit(request):
+    return render(request, 'profile_edit.html')
+
+# 친구의 캘린더 보기
+def friend_calendar(request):
+    return render(request, 'friend_calendar.html')
 
