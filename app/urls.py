@@ -13,5 +13,4 @@ urlpatterns = [
     path('mypage/', views.mypage, name='mypage'),
     path('mypage/profile_edit/', views.profile_edit, name='profile_edit'),
     path('friend_calendar', views.friend_calendar, name='friend_calendar'),
-
 ]
