@@ -199,7 +199,6 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #111;
 }
 .login__wrapper {
   width: 100%;
@@ -263,8 +262,6 @@
 
 /* 기본 세팅 */
 .signup {
-  background-color: #121212;
-  /* 화면 배경이 검은색인 것 같아 조정했습니다. */
   min-height: 100vh;
   display: flex;
   justify-content: center;
