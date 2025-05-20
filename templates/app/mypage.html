@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -21,14 +22,16 @@
                     <div class="email">user_email</div>
                 </div>
             </div>
-            <button class="edit-button">프로필 수정</button>
+            <a href="{% url 'profile_edit' %}" class="edit-button">프로필 수정</a>
         </div>
 
         <!-- 검색창 영역 -->
         <div class="search-container">
             <div class="search-input-wrapper">
-                <span class="material-symbols-outlined search-input-icon">search</span>
                 <input type="text" class="search-input" placeholder="이름으로 친구를 검색하세요.">
+            </div>
+            <div class="search-icon">
+                <span class="material-symbols-outlined search-input-icon">search</span>
             </div>
             <button class="plus-button" aria-label="친구 추가" id="open-popup">
                 <span class="material-symbols-outlined">add</span>

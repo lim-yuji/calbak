@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -6,20 +6,24 @@
     <link rel="stylesheet" href="{%static 'css/style_smg.css'%}">
 </head>
 <body>
-<div class="container">
+<div class="edit-container">
     <h2>프로필 관리</h2>
     <div class="info-row">
         <span class="info-label">아이디</span>
-        <span class="info-value">sampleUser</span>
+        <span class="info-value">{{ user.username }}</span>  <!-- 백엔드 값 -->
     </div>
+  
     <div class="info-row">
-        <span class="info-label">앱 버전</span>
-        <span class="info-value" id="appVersion">1.0.0</span>
+        <label for="password" class="info-label">비밀번호</label>
+        <input type="password" id="password" name="password" placeholder="새 비밀번호 입력" />
+    </div>
+
+    <div class="info-row">
+        <label for="email" class="info-label">이메일</label>
+        <input type="email" id="email" name="email" value="{{ user.email }}" />
     </div>
     <div class="button-group">
-        <button class="action-btn" id="changePasswordBtn">비밀번호 변경</button>
-        <button class="action-btn" id="changeEmailBtn">이메일 변경</button>
-        <button class="action-btn" id="noticeBtn">공지사항</button>
+        <button class="action-btn" type="submit">저장</button>
         <button class="action-btn danger" id="deleteBtn">회원 탈퇴</button>
         <button class="action-btn secondary" id="logoutBtn">로그아웃</button>
     </div>

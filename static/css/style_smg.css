@@ -4,8 +4,44 @@
     background-color: #fff;
     border: 1px solid #e3e6ea;
     border-radius: 16px;
-    overflow: hidden;
+    overflow: auto;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    margin: 3rem auto;
+}
+.container::-webkit-scrollbar {
+  width: 6px;  /* 수직 스크롤바 두께 */
+  height: 6px; /* 수평 스크롤바 두께 */
+}
+
+.container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.3);
+  border-radius: 3px;
+}
+
+.container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 100, 100, 0.3) transparent;
+}
+
+.edit-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    border: 1px solid #e3e6ea;
+    border-radius: 16px;
+    margin: 3rem auto;
+    padding: 24px;
+}
+
+.edit-container h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .profile-row {
@@ -14,6 +50,7 @@
     justify-content: space-between;
     padding: 24px 24px 8px 24px;
     background: #fff;
+    margin-block: 1rem;
 }
 
 .profile-section {
@@ -58,62 +95,58 @@
     cursor: pointer;
     box-shadow: 0 1px 2px rgba(25, 118, 210, 0.08);
     transition: background 0.2s;
+    text-decoration: none;
 }
 .edit-button:hover {
     background: #d2e3fc;
 }
 
 .search-container {
-    display: flex;
-    align-items: center;
-    padding: 0 24px 16px 24px;
-    gap: 10px;
-    background: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* 요소 간 간격 조정 */
+  padding: 0 24px 16px 24px;
+  background: #fff;
 }
 
 .search-input-wrapper {
-    position: relative;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    height: 40px;
-}
-
-.search-input-icon {
-    position: absolute;
-    left: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 24px;
-    color: #8da0b3;
-    pointer-events: none;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex: 1; /* 남은 공간 차지 */
+  position: relative;
 }
 
 .search-input {
-    width: 100%;
-    padding: 10px 16px 10px 40px;
-    border: none;
-    border-radius: 20px;
-    background-color: #f1f3f5;
-    font-size: 14px;
-    color: #222;
-    outline: none;
-    transition: background 0.2s;
-    height: 40px;
-    display: block;
+  width: 100%;
+  padding: 10px 12px; /* 좌우 패딩 균등 */
+  border-radius: 20px;
+  border: none;
+  background-color: #f1f3f5;
+  font-size: 14px;
+  color: #222;
+  outline: none;
+  height: 40px;
+  box-sizing: border-box;
 }
+
+.search-icon {
+  font-size: 24px;
+  color: #8da0b3;
+  cursor: pointer;
+  /* 가운데 정렬 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
 .search-input:focus {
     background: #e3eaf6;
 }
 .search-input::placeholder {
     color: #b0b8c1;
 }
-
+.search-input-wrapper input[type="text"] {
+    width: 100%;
+}
 .plus-button {
     background: #1976d2;
     border: none;
@@ -435,4 +468,25 @@ h2 {
 }
 #back-button:hover {
     background: #125bb5;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 80%;
+  max-width: 400px;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1.5px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
 }

@@ -108,13 +108,13 @@ def add_event(request):
 
 # 마이 페이지
 def mypage(request):
-    return render(request, 'mypage.html')
+    return render(request, 'app/mypage.html')
 
 # 프로필 수정
 def profile_edit(request):
-    return render(request, 'profile_edit.html')
+    return render(request, 'app/profile_edit.html')
 
 # 친구의 캘린더 보기
 def friend_calendar(request):
-    return render(request, 'friend_calendar.html')
+    return render(request, 'app/friend_calendar.html')
 
