@@ -9,7 +9,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout, update_session_auth_hash
 from .models import Event
 from django.views.decorators.http import require_POST
 from urllib.parse import quote
@@ -168,3 +169,58 @@ def signup(request):
             return HttpResponseBadRequest('잘못된 요청입니다.')
 
     return render(request, 'app/signup.html')
+
+@login_required
+def profile_edit(request):
+    """
+    GET:  현재 이메일 보여주는 폼 렌더링
+    POST: 이메일·비밀번호 변경 처리
+    """
+    user = request.user
+
+    if request.method == 'POST':
+        email    = request.POST.get('email', '').strip()
+        password = request.POST.get('password', '').strip()
+
+        # 이메일만 바꿀 때
+        if email and email != user.email:
+            user.email = email
+
+        # 비밀번호만 바꿀 때
+        if password:
+            user.set_password(password)
+            # 세션에 로그인 유지
+            update_session_auth_hash(request, user)
+
+        user.save()
+        messages.success(request, '프로필이 성공적으로 업데이트되었습니다.')
+        return redirect('profile_edit')
+
+    # GET
+    return render(request, 'app/profile_edit.html', {
+        'user': user
+    })
+
+
+@login_required
+def delete_account(request):
+    """
+    POST 요청으로만 처리
+    """
+    if request.method != 'POST':
+        return HttpResponseBadRequest('잘못된 요청입니다.')
+
+    # 현재 사용자 로그아웃 후 삭제
+    user = request.user
+    auth_logout(request)
+    user.delete()
+
+    messages.success(request, '회원 탈퇴가 완료되었습니다.')
+    return redirect('home')
+
+
+@login_required
+def logout_view(request):
+    auth_logout(request)
+    messages.info(request, '로그아웃 되었습니다.')
+    return redirect('home')

@@ -15,5 +15,7 @@ urlpatterns = [
     path('friend_calendar/', views.friend_calendar, name='friend_calendar'),
     path('login/', views.login, name='login'),
     path('signup/', views.signup, name='signup'),
+    path('mypage/profile_delete/', views.delete_account, name='delete_account'),
+    path('logout/', views.logout_view, name='logout'),
 
 ]
