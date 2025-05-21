@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const eventInput = document.getElementById('event-input');
   let addBtn       = document.getElementById('add-event-btn');
   let currentStart, currentEnd;   // 기간을 저장
+  let isComposing = false;        // 한글 조합 중 상태 플래그
 
   function openModal(startStr, endStr = null) {
     if (!modal) return;
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function addEvent() {
     const title = eventInput.value.trim();
+    console.log('일정 추가 시도:', title, currentStart, currentEnd);
     if (!title) return;
     calendar.addEvent({
       title: title,
@@ -69,8 +71,20 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   if (addBtn) addBtn.onclick = addEvent;
+
   if (eventInput) {
+    // 한글 조합 시작
+    eventInput.addEventListener('compositionstart', () => {
+      isComposing = true;
+    });
+
+    // 한글 조합 끝
+    eventInput.addEventListener('compositionend', () => {
+      isComposing = false;
+    });
+
     eventInput.addEventListener('keydown', e => {
+      if (isComposing) return;  // 조합 중엔 무시
       if (e.key === 'Enter') {
         addEvent();
         e.preventDefault();
