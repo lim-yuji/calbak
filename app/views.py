@@ -73,31 +73,25 @@ def get_holiday_events(request):
 @require_POST
 def add_event(request):
     try:
-        # JSON 데이터를 받아옵니다.
-        payload = json.loads(request.body)
+        payload = json.loads(request.body.decode('utf-8'))
         
-        # 필요한 필드 확인 및 데이터베이스 저장
         title = payload.get('title')
         start = payload.get('start')
-        end = payload.get('end', start)  # end가 없으면 start를 end로 설정
+        end = payload.get('end', start)
 
         if not title or not start:
             raise ValueError("Title and Start date are required.")
 
-        # 새로운 이벤트 생성
         ev = Event.objects.create(
-            title=title,
+            title=title,   # 변수 사용
             start=start,
             end=end
         )
         
-        # 성공적으로 저장되면 이벤트 정보를 반환
         return JsonResponse({'success': True, 'event': ev.as_dict()})
     
     except Exception as e:
-        # 오류가 발생하면 오류 메시지 반환
         return HttpResponseBadRequest(json.dumps({'success': False, 'error': str(e)}), content_type='application/json')
-    
 
 # 마이 페이지
 def mypage(request):
