@@ -5,15 +5,9 @@
   <meta charset="UTF-8" />
   <title>캘린더</title>
   <!-- FullCalendar CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css"
-    rel="stylesheet"
-  />
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet" />
   <!-- 커스텀 CSS -->
-  <link
-    rel="stylesheet"
-    href="{% static 'css/style_lsy.css' %}"
-  />
+  <link rel="stylesheet" href="{% static 'css/style_lsy.css' %}" />
 </head>
 <body>
   <div id="calendar"></div>
@@ -25,6 +19,7 @@
       <h2 id="modal-date">날짜</h2>
       <ul id="event-list"></ul>
       <input id="event-input" type="text" placeholder="일정 제목 입력" />
+      <button id="time-input-btn" type="button">시간 입력하기</button> <!-- 여기 버튼 추가 -->
     </div>
   </div>
 
@@ -34,3 +29,4 @@
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.8/index.global.min.js"></script>
   <script src="{% static 'js/calendar.js' %}" defer></script>
 </body>
+</html>
