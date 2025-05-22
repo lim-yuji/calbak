@@ -208,3 +208,17 @@ html, body {
   margin-left: 1rem;     /* 타이틀과 뷰 버튼 사이 1rem */
   margin-right: 1.5rem;
 }
+
+.time-btn {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.event-input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
