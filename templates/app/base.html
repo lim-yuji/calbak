@@ -1,13 +1,61 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{%static 'css/style.css'%}">  
-    <title>Calbak</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{% block title %}캘박{% endblock %}</title>
+
+  <!-- 공통 CSS -->
+  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+
+  <!-- 페이지별 추가 CSS -->
+  {% block extra_css %}{% endblock %}
+
+  <script src="https://kit.fontawesome.com/9a2ea3dfaf.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>안녕하세요</h1>
-    <script src="{% static 'js/script.js' %}"></script>
+  <!-- 상단 헤더 -->
+  <header class="header">
+    <!-- 오른쪽 햄버거 버튼 -->
+    <button type="button" class="header__menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <!-- 사이드바 메뉴 -->
+  <aside class="sidebar">
+    <ul class="sidebar__list">
+      <li><a href="{% url 'home' %}">home</a></li>
+      <li><a href="{% url 'login' %}">Login</a></li>
+      <li><a href="{% url 'calendar' %}">Calendar</a></li>
+    </ul>
+  </aside>
+
+  <!-- 메뉴 바깥 어두운 레이어 -->
+  <div class="overlay"></div>
+
+  <!-- 본문 영역 -->
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- 햄버거 토글 스크립트 -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.querySelector('.header__menu');
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.overlay');
+
+      menuBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+      });
+      overlay.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+      });
+    });
+  </script>
 </body>
 </html>
