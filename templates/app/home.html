@@ -1,32 +1,15 @@
+{% extends 'app/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>캘박 - Home</title>
 
-  <!-- Font Awesome CDN -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-pZfp0q5K+XK6u+9cO0hKz+bd0QvXOZBsYz6LPoURFh37wZbsbCojxi+Z0Nm57CZV+0sIBh5e8a1ypz/sL5/4g=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
+{% block title %}캘박 - Home{% endblock %}
 
-  <!-- 로컬 static/css/style_ydy.css -->
+{% block extra_css %}
+  <!-- home 전용 스타일 -->
   <link rel="stylesheet" href="{% static 'css/style_ydy.css' %}" />
-</head>
+{% endblock %}
 
-<body class="home">
-  <header class="home__header">
-    <button type="button" class="home__header-menu">
-      <i class="fa-solid fa-bars"></i>
-    </button>
-  </header>
-
-  <main class="home__container">
+{% block content %}
+  <div class="home__container">
     <h1 class="home__title">캘박</h1>
     <p class="home__subtitle">겹치지 않는 완벽한 일정 관리</p>
 
@@ -34,11 +17,10 @@
       <div class="home__card">
         <div class="home__card-icon">
           <img
-          src="{% static 'img/check-mark.png' %}"
-          alt="오늘 일정 아이콘"
-          class="home__card-icon-img check-icon"
+            src="{% static 'img/check-mark.png' %}"
+            alt="오늘 일정 아이콘"
+            class="home__card-icon-img check-icon"
           />
-          <i class="fa-regular fa-calendar-days"></i>
         </div>
         <div class="home__card-content">
           <h2 class="home__card-title">오늘의 일정</h2>
@@ -49,11 +31,10 @@
       <div class="home__card">
         <div class="home__card-icon">
           <img
-          src="{% static 'img/dupli-icon.png' %}"
-          alt="일정 겹침 아이콘"
-          class="home__card-icon-img dupli-icon"
+            src="{% static 'img/dupli-icon.png' %}"
+            alt="일정 겹침 아이콘"
+            class="home__card-icon-img dupli-icon"
           />
-          <i class="fa-solid fa-exclamation"></i>
         </div>
         <div class="home__card-content">
           <h2 class="home__card-title">일정 겹침 발생!</h2>
@@ -64,11 +45,10 @@
       <div class="home__card">
         <div class="home__card-icon">
           <img
-          src="{% static 'img/calendar.png' %}"
-          alt="캘린더 아이콘"
-          class="home__card-icon-img calendar-icon"
+            src="{% static 'img/calendar.png' %}"
+            alt="캘린더 아이콘"
+            class="home__card-icon-img calendar-icon"
           />
-          <i class="fa-regular fa-calendar"></i>
         </div>
         <div class="home__card-content">
           <h2 class="home__card-title">내 캘린더</h2>
@@ -76,11 +56,9 @@
         </div>
       </div>
     </section>
-  </main>
 
-  <a href="{% url 'calendar' %}" class="home__btn-add">
-  <img src="{% static 'img/plus.png' %}" alt="플러스 아이콘" class="button-icon-img plus-icon" />
-  <i class="fa-solid fa-plus"></i>
-</a>
-</body>
-</html>
+    <a href="{% url 'calendar' %}" class="home__btn-add">
+      <i class="fa-solid fa-plus"></i>
+    </a>
+  </div>
+{% endblock %}
