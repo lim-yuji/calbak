@@ -116,20 +116,6 @@ document.getElementById('noticeBtn').onclick = () => {
   showModal(html);
 };
 
-// 로그아웃
-document.getElementById('logoutBtn').onclick = function () {
-    showModal('로그아웃 하시겠습니까?', function () {
-        window.location.href = '/login.html';
-    });
-};
-
-// 회원 탈퇴
-document.getElementById('deleteBtn').onclick = function () {
-    showModal('정말로 회원 탈퇴하시겠습니까?', function () {
-        window.location.href = '/signup.html';
-    });
-};
-
 // 모달 외부 클릭 시 닫기
 document.getElementById('modal').addEventListener('click', function (e) {
     if (e.target === this) this.style.display = 'none';
@@ -137,3 +123,46 @@ document.getElementById('modal').addEventListener('click', function (e) {
 document.getElementById('formModal').addEventListener('click', function (e) {
     if (e.target === this) this.style.display = 'none';
 });
+
+// 로그아웃
+document.getElementById('logoutBtn').onclick = function () {
+    showModal('로그아웃 하시겠습니까?', function () {
+        fetch('/api/logout', { method: 'POST', credentials: 'include' })
+          .then(res => {
+              if (res.ok) {
+                  window.location.href = '/login.html';
+              } else {
+                  showModal('로그아웃 실패');
+              }
+          })
+          .catch(() => showModal('네트워크 오류가 발생했습니다.'));
+    });
+};
+
+// 회원 탈퇴
+document.getElementById('deleteBtn').onclick = function () {
+    showFormModal("회원 탈퇴", [
+        { id: 'password', type: 'password', placeholder: '비밀번호를 입력하세요' }
+    ], (data) => {
+        fetch('/api/delete', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ password: data.password }),
+            credentials: 'include'
+        })
+        .then(res => {
+            if (res.ok) {
+                showModal('회원 탈퇴가 완료되었습니다.', () => {
+                    window.location.href = '/signup.html';
+                });
+            } else if (res.status === 401) {
+                showModal('비밀번호가 일치하지 않습니다.');
+            } else {
+                showModal('회원 탈퇴에 실패');
+            }
+        })
+        .catch(() => showModal('네트워크 오류가 발생했습니다.'));
+    });
+};
